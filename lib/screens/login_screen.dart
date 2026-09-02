@@ -38,7 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final btnLogin = ElevatedButton(
       onPressed: (){
         setState(() {isLoading = !isLoading;});
-        Future.delayed(Duration(seconds: 4));
+        Future.delayed(Duration(seconds: 4)).then((value) { 
+          Navigator.pushNamed(context, "/dash");
+          isLoading = false;
+          setState(() {});
+        });
+        
       }, 
       child: Row(
         children: [
@@ -85,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             isLoading ? loading : Container()
+            
           ],
         ),
       )
