@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/global_values.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -31,6 +32,9 @@ class DashboardScreen extends StatelessWidget {
               subtitle: Text("Claro / Oscuro"),
               leading: Icon(Icons.light_mode_outlined),
               trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                GlobalValues.banTheme.value = !GlobalValues.banTheme.value;
+              },
             ),
             ListTile(
               title: Text('Cerrar sesión'),
@@ -45,7 +49,7 @@ class DashboardScreen extends StatelessWidget {
         ),
       ),
 
-      //body: Image.asset('assets/lamar-franklin.gif'),
+      body: Image.asset('assets/lamar-franklin.gif'),
     );
   }
 }
