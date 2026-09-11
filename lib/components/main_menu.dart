@@ -10,21 +10,21 @@ class MenuCircular extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularMenu(
       alignment: Alignment.bottomCenter,
-      backgroundWidget: Center(
-        child: RichText(
-          text: TextSpan(
-            style: TextStyle(color: Colors.black, fontSize: 28),
-            children: <TextSpan>[
-              TextSpan(
-                text: _colorName,
-                style:
-                    TextStyle(color: _color, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(text: ' button is clicked.'),
-            ],
-          ),
-        ),
-      ),
+      // backgroundWidget: Center(
+      //   child: RichText(
+      //     text: TextSpan(
+      //       style: TextStyle(color: Colors.black, fontSize: 28),
+      //       children: <TextSpan>[
+      //         TextSpan(
+      //           text: _colorName,
+      //           style:
+      //               TextStyle(color: _color, fontWeight: FontWeight.bold),
+      //         ),
+      //         TextSpan(text: ' button is clicked.'),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       toggleButtonColor: Colors.pink,
       items: [
         CircularMenuItem(
