@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/global_values.dart';
+import 'package:flutter_application_1/components/main_menu.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -33,7 +34,7 @@ class DashboardScreen extends StatelessWidget {
               leading: Icon(Icons.light_mode_outlined),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-                GlobalValues.banTheme.value = !GlobalValues.banTheme.value;
+                //GlobalValues.banTheme.value = !GlobalValues.banTheme.value;
               },
             ),
             ListTile(
@@ -48,8 +49,13 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
-
-      body: Image.asset('assets/lamar-franklin.gif'),
+      floatingActionButton: MenuCircular(),
+      body: Column(
+        children: [
+          //Image.asset('assets/lamar-franklin.gif'),
+          Text('Texto de prueba')
+        ],
+      ), 
     );
   }
 }
