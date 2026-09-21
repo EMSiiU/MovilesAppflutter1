@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
+import 'package:path/path.dart';
 
 class NotesDB{
   static final nameDB = "NOTESDB";
@@ -11,8 +14,8 @@ class NotesDB{
   //el _ antepuesto a una variable indica que es privada. ? lo define como null
   static Database? _database;   
 
-  //
-  static Future <Database?> get database async{
+  // Si existe se recupera y si no existe se llama 
+  Future <Database?> get database async{
       if(_database != null)
         return _database;
       return _database = await _initDatabase();
@@ -20,5 +23,46 @@ class NotesDB{
 
   Future <Database> _initDatabase() async{
     Directory folder = await getApplicationDocumentsDirectory();
+    String pathDB = join(folder.path, nameDB); //Ruta + nameDB. Metodo join permite unir 2 variables
+    
+    //generar conexión
+    return openDatabase(
+      pathDB, 
+      version: versionDB,
+      onCreate: createTables //donde se crea las tablas (no la bd)
+    );
   }
+
+  //Funcion para generar tablas
+  FutureOr<void> createTables(Database db, int version) {
+    String query = '''
+      CREATE TABLE tblNotes(
+        idNote INTEGER PRIMARY KEY,
+        title VARCHAR(35),
+        content TEXT,
+        dateNote CHAR(10)
+      )
+      ''';
+      db.execute(query);
+  }
+
+  //Metodos del CRUD
+  Future<int> INSERT(Map<String, dynamic> note) async{
+    //ver si existe la conexión
+    var conexion = await database;
+    return conexion!.insert("tblNotes", note);
+  }
+  Future<int> UPDATE(Map<String, dynamic> note) async{
+    var conexion = await database;
+    return conexion!.update("tblNotes", note, where: "idNote = ?", whereArgs: [note['idNote']]);
+
+  }
+  Future<int> DELETE(int idNote) async{
+    var conexion = await database;
+    return conexion!.delete("tblNotes", where: "idNote = ?", whereArgs: [idNote]);
+  }
+
+
+  Future<void> SELECT(){}
+
 }
