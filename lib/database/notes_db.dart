@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter_application_1/database/notes_dao.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -63,6 +64,10 @@ class NotesDB{
   }
 
 
-  Future<void> SELECT(){}
-
+  Future<List<NotesDAO>> SELECT() async{
+    var conexion = await database;
+    final res = await conexion!.query("tblNotes"); //regresa una lista
+    //el return es una lista de objetos -> List<NotesDAO> list
+    return res.map((note) => NotesDAO.fromMap(note)).toList();  //recorre la lista y se mete al dao donde regresa map, se debe de convertir a lista
+  }
 }

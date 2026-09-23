@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/global_values.dart';
-import 'package:flutter_application_1/components/main_menu.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/database/notes_db.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class NotesScreen extends StatefulWidget {
+  const new({super.key});
+
+  @override
+  State<NotesScreen> createState() => _NotesScreenState();
+}
+
+class _NotesScreenState extends State<NotesScreen> {
+  //crear objeto para las operaciones
+  NotesDB? notesDB;
+
+  @override
+  void initState() {
+    super.initState();
+    notesDB = NotesDB();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //
       appBar: AppBar(
         leading: Container(), //quitar el volver default
       ),
@@ -28,7 +44,7 @@ class DashboardScreen extends StatelessWidget {
               leading: Icon(Icons.check),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-                //Navigator.pushNamed(context, "/dash");
+                Navigator.pushNamed(context, "/dash");
               },
             ),
             ListTile(
@@ -52,13 +68,28 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: MenuCircular(),
-      body: Column(
-        children: [
-          Image.asset('assets/lamar-franklin.gif'),
-          Text('Texto de prueba')
-        ],
-      ), 
+
+      //futurebuilder ejecuta la petición en segundo plano (el future) y espera para construir (el builder) si termina correctamente
+      // hay un tercer estado que es "en ejecución", además del "exitoso" y "fallido"
+
+      body: FutureBuilder(
+        future: notesDB!.SELECT(),  
+        builder: (context, snapshot) { //snapshot -> trae la lista de objetos
+          if(snapshot.hasData){
+            return Center(child: Text('Si trae datos'));
+          }else{
+            if(snapshot.hasError){
+              return Center(child: Text('Algo salió mal, no trae datos'));
+            }else{
+              return Center(child: CircularProgressIndicator());
+            }
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.note_add),
+        onPressed: ()=> Navigator.pushNamed(context, "/add")
+      ),
     );
   }
 }
