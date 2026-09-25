@@ -76,7 +76,13 @@ class _NotesScreenState extends State<NotesScreen> {
         future: notesDB!.SELECT(),  
         builder: (context, snapshot) { //snapshot -> trae la lista de objetos
           if(snapshot.hasData){
-            return Center(child: Text('Si trae datos'));
+            //lista que se va a estar autoincrementando para mostrar las notas
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index){
+                return Text(snapshot.data![index].title!);
+              }
+            );
           }else{
             if(snapshot.hasError){
               return Center(child: Text('Algo salió mal, no trae datos'));
@@ -88,7 +94,9 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.note_add),
-        onPressed: ()=> Navigator.pushNamed(context, "/add")
+        onPressed: ()=> Navigator.pushNamed(context, "/add").then((value){
+          setState(() {});
+        })
       ),
     );
   }
