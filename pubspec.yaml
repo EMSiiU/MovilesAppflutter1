@@ -38,6 +38,7 @@ dependencies:
   hawk_fab_menu: ^1.2.0
   sqflite: ^2.4.4
   path_provider: ^2.1.6
+  firebase_core: ^4.15.0
 
 dev_dependencies:
   flutter_test:
