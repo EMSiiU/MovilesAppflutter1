@@ -20,12 +20,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final txtUser = TextFormField(
       decoration: InputDecoration(
+        labelText: 'Email',
         border: OutlineInputBorder()
       ),
     );
+
     final txtPwd = TextFormField(
       obscureText: true,
       decoration: InputDecoration(
+        labelText: 'Password',
         border: OutlineInputBorder()
       ),
     );
@@ -42,14 +45,31 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushNamed(context, "/dash");
           isLoading = false;
           setState(() {});
-        });
-        
+        }); 
       }, 
       child: Row(
         children: [
           Icon(Icons.login),
           spaceX,
-          Text('Iniciar Sesión')
+          Text('Login')
+        ],
+      )
+    );
+
+    final btnRegister = ElevatedButton(
+      onPressed: (){
+        setState(() {isLoading = !isLoading;});
+        Future.delayed(Duration(seconds: 4)).then((value) { 
+          Navigator.pushNamed(context, "/register");
+          isLoading = false;
+          setState(() {});
+        }); 
+      }, 
+      child: Row(
+        children: [
+          Icon(Icons.person_add),
+          spaceX,
+          Text('Register')
         ],
       )
     );
@@ -67,12 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Stack(
           alignment: AlignmentGeometry.center,
           children: [
-            Image.asset('assets/GTA6Logo.png', height: 200,),
+            Image.asset('assets/GTA6Logo.png', height: 170,),
             Positioned(
-              bottom: 50,
+              bottom: 40,
               child: Container(
                 padding: EdgeInsets.all(15),
-                height: 211,
+                height:260,
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(250, 135, 0, 0.658),
@@ -84,7 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     spaceY,
                     txtPwd,
                     Divider(),
-                    btnLogin
+                    btnLogin,
+                    btnRegister,
                   ],
                 ),
               ),
