@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/email_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,6 +9,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //Controladores
+  final conEmail = TextEditingController();
+  final conPassword = TextEditingController();
+  EmailAuth? _emailAuth;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailAuth = EmailAuth();
+  }
 
   bool isLoading = false;
 
@@ -18,7 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final spaceX = Container(width: 5,);
     final spaceY = SizedBox(height: 5,);
 
-    final txtUser = TextFormField(
+    final txtEmail = TextFormField(
+      controller: conEmail,
       decoration: InputDecoration(
         labelText: 'Email',
         border: OutlineInputBorder()
@@ -26,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final txtPwd = TextFormField(
+      controller: conPassword,
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
@@ -40,12 +53,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final btnLogin = ElevatedButton(
       onPressed: (){
-        setState(() {isLoading = !isLoading;});
-        Future.delayed(Duration(seconds: 4)).then((value) { 
-          Navigator.pushNamed(context, "/dash");
+        isLoading = !isLoading;
+        setState(() {});
+        _emailAuth!.loginUser(email: conEmail.text, password: conPassword.text).then((value) {
+          if(value){
+            Navigator.pushNamed(context, "/dash");
+          }else{
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Something was wrong. Try again!"),
+                duration: Duration(seconds: 3),
+                backgroundColor: Colors.red),
+            );
+          }
           isLoading = false;
           setState(() {});
-        }); 
+        });
       }, 
       child: Row(
         children: [
@@ -58,12 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final btnRegister = ElevatedButton(
       onPressed: (){
-        setState(() {isLoading = !isLoading;});
-        Future.delayed(Duration(seconds: 4)).then((value) { 
-          Navigator.pushNamed(context, "/register");
-          isLoading = false;
-          setState(() {});
-        }); 
+        Navigator.pushNamed(context, "/register");
       }, 
       child: Row(
         children: [
@@ -100,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Column(
                   children: [
-                    txtUser,
+                    txtEmail,
                     spaceY,
                     txtPwd,
                     Divider(),
