@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/database/notes_dao.dart';
-import 'package:flutter_application_1/database/notes_db.dart';
 import 'package:flutter_application_1/services/firestore_note.dart';
 
 class NotesScreenCloud extends StatefulWidget {
@@ -28,7 +25,7 @@ class _NotesScreenCloudState extends State<NotesScreenCloud> {
     return Scaffold(
       //
       appBar: AppBar(
-        title: Text('Notes List'),
+        title: Text('Notes List Cloud'),
         //leading: Container(), //quitar el volver default
       ),
       body: StreamBuilder(
@@ -53,7 +50,7 @@ class _NotesScreenCloudState extends State<NotesScreenCloud> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.note_add),
-        onPressed: ()=> Navigator.pushNamed(context, "/add").then((value){
+        onPressed: ()=> Navigator.pushNamed(context, "/addCloud").then((value){
           setState(() {});
         })
       ),
@@ -92,7 +89,7 @@ class _NotesScreenCloudState extends State<NotesScreenCloud> {
               ),
             ),
             IconButton(onPressed: () {
-              Navigator.pushNamed(context, '/add', arguments: note).then((value){
+              Navigator.pushNamed(context, '/addCloud', arguments: {"idNote": note.id,"title": note.get("title"), "content": note.get("content")}).then((value){
                 setState(() {});
               });
             }, icon: Icon(Icons.edit)),
@@ -114,18 +111,18 @@ class _NotesScreenCloudState extends State<NotesScreenCloud> {
         TextButton(
             child: Text("Accept"),
             onPressed: () {
-              // notesDB!.DELETE(idNote).then((value){
-              //   String msg = (value == 1) ? "Note deleted successfuly" : "Something was wrong"; 
+              _firestoreNotes!.deletetNote(idNote).then((value){
+                String msg = (value) ? "Note deleted successfuly" : "Something was wrong"; 
                 
-              //   ScaffoldMessenger.of(context).showSnackBar(
-              //     SnackBar(
-              //       content: Text(msg),
-              //       duration: Duration(seconds: 3),
-              //     )
-              //   );
-              // });
-              // Navigator.of(context).pop();
-              // setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(msg),
+                    duration: Duration(seconds: 3),
+                  )
+                );
+              });
+              Navigator.of(context).pop();
+              setState(() {});
               
             }),
 

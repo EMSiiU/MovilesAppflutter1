@@ -11,15 +11,34 @@ class FirestoreNotes{
     return notesCollection!.snapshots();
   }
   
-  insertNote(Map <String, dynamic> note) async {
-    notesCollection!.doc().set(note);
+  Future<bool> insertNote(Map <String, dynamic> note) async {
+    try{
+      notesCollection!.doc().set(note);
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }  
   }
 
-  deletetNote(String id) async {
-    notesCollection!.doc(id).delete();
+  Future<bool> deletetNote(String id) async {
+    try{
+      notesCollection!.doc(id).delete();
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
   }
 
-  updateNote(Map <String, dynamic> note, String id) async {
-    notesCollection!.doc(id).update(note);
+  Future<bool> updateNote(Map <String, dynamic> note, String id) async {
+    try{
+      notesCollection!.doc(id).update(note);
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+    
   }
 }

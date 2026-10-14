@@ -5,6 +5,7 @@ import 'package:flutter_application_1/components/global_values.dart';
 import 'package:flutter_application_1/components/theme_app.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/screens/add_note_screen.dart';
+import 'package:flutter_application_1/screens/add_note_screen_cloud.dart';
 import 'package:flutter_application_1/screens/dashboard_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
 import 'package:flutter_application_1/screens/notes_screen.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
             "/note" : (context) => NotesScreen(),
             "/add" : (context) => AddNoteScreen(),
             "/register" : (context) => RegisterScreen(),
-            "/noteCloud" :(context) => NotesScreenCloud()
+            "/noteCloud" :(context) => NotesScreenCloud(),
+            "/addCloud" :(context) => AddNoteScreenCloud()
           },
           theme: tema,
           debugShowCheckedModeBanner: false,
