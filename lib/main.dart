@@ -6,6 +6,7 @@ import 'package:flutter_application_1/components/theme_app.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/screens/add_note_screen.dart';
 import 'package:flutter_application_1/screens/add_note_screen_cloud.dart';
+import 'package:flutter_application_1/screens/api_popular_screen.dart';
 import 'package:flutter_application_1/screens/dashboard_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
 import 'package:flutter_application_1/screens/notes_screen.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
             "/add" : (context) => AddNoteScreen(),
             "/register" : (context) => RegisterScreen(),
             "/noteCloud" :(context) => NotesScreenCloud(),
-            "/addCloud" :(context) => AddNoteScreenCloud()
+            "/addCloud" :(context) => AddNoteScreenCloud(),
+            "/movies": (context) => ApiPopularScreen()
           },
           theme: tema,
           debugShowCheckedModeBanner: false,
