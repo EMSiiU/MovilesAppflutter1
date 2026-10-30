@@ -1,4 +1,5 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "cmake.sourceDirectory": "C:/Escuela/9no_semestre/moviles/prueba/flutter_application_1/linux"
+    "cmake.sourceDirectory": "C:/Escuela/9no_semestre/moviles/prueba/flutter_application_1/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
