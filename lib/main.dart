@@ -9,6 +9,7 @@ import 'package:flutter_application_1/screens/add_note_screen_cloud.dart';
 import 'package:flutter_application_1/screens/api_popular_screen.dart';
 import 'package:flutter_application_1/screens/dashboard_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
+import 'package:flutter_application_1/screens/map_google_screen.dart';
 import 'package:flutter_application_1/screens/notes_screen.dart';
 import 'package:flutter_application_1/screens/notes_screen_cloud.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
@@ -44,7 +45,9 @@ class MyApp extends StatelessWidget {
             "/register" : (context) => RegisterScreen(),
             "/noteCloud" :(context) => NotesScreenCloud(),
             "/addCloud" :(context) => AddNoteScreenCloud(),
-            "/movies": (context) => ApiPopularScreen()
+            "/movies": (context) => ApiPopularScreen(),
+            "/map" :(context) => MapGoogleScreen()
+            
           },
           theme: tema,
           debugShowCheckedModeBanner: false,
